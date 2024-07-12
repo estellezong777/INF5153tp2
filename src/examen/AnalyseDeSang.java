@@ -1,14 +1,20 @@
 package examen;
+import examen.types.AnalyseDeSangParameter;
 
-public class AnalyseDeSang extends Examen{
+public class AnalyseDeSang extends Examen {
+    private AnalyseDeSangParameter type;
 
-    @Override
-    public void setType(String type) {
-
+    public AnalyseDeSang(AnalyseDeSangParameter type) {
+        this.type = type;
     }
 
-    @Override
-    public String getType() {
-        return null;
+
+    public void setType(AnalyseDeSangParameter type) {
+        this.type = type;
+    }
+
+
+    public AnalyseDeSangParameter getType() {
+        return this.type;
     }
 }

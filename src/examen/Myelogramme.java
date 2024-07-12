@@ -1,4 +1,5 @@
 package examen;
 
-public class Myelogramme {
+public class Myelogramme extends Examen{
+
 }

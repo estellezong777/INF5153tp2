@@ -1,22 +1,15 @@
 package examen;
 import java.util.ArrayList;
 
-public class ExamenCompose extends Examen {
-    private ArrayList<Examen> listExamensElem = new ArrayList<>();
+public abstract class ExamenCompose extends Examen {
+    protected ArrayList<Examen> listExamensElem ;
 
-    public ExamenCompose(String type) {
-        this.type = type;
+    public ExamenCompose() {
+
+        this.listExamensElem = new ArrayList<>();
     }
 
-    @Override
-    public void setType(String type) {
-        this.type = type;
-    }
 
-    @Override
-    public String getType() {
-        return this.type;
-    }
 
     public void addExamen(Examen examen) {
         listExamensElem.add(examen);
