@@ -1,6 +1,7 @@
 package examen;
 import examen.types.AnalyseDeSangParameter;
 
+
 public class AnalyseDeSang extends Examen {
     private AnalyseDeSangParameter type;
 
@@ -17,4 +18,8 @@ public class AnalyseDeSang extends Examen {
     public AnalyseDeSangParameter getType() {
         return this.type;
     }
+
+//    public void accept(Visitor visitor) {
+//        visitor.visit(this);
+//    }
 }

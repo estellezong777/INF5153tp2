@@ -13,8 +13,11 @@ public class AnalyseUrine extends Examen{
 
     }
 
-
     public AnalyseUrineParameter getType() {
         return null;
     }
+
+//    public void accept(Visitor visitor) {
+//        visitor.visit(this);
+//    }
 }

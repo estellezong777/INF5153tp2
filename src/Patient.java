@@ -16,3 +16,4 @@ public class Patient extends AbstractEcouteur {
         this.listExamensFait = new ArrayList<>();
         this.listRDVaVenir = new ArrayList<>();
     }
+}

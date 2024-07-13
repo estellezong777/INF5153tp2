@@ -12,4 +12,6 @@ public class Medecin extends AbstractEcouteur {
         this.numTelMed = numTelMed;
         this.emailMed = emailMed;
     }
+
+
 }

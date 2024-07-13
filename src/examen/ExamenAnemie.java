@@ -12,5 +12,10 @@ public class ExamenAnemie extends ExamenCompose{
         listExamensElem.add(new AnalyseUrine(AnalyseUrineParameter.GLYCOSURIE));
     }
 
-
+    @Override
+    public String toString() {
+        return "ExamenAnemie{" +
+                "listExamensElem=" + listExamensElem +
+                '}';
+    }
 }
