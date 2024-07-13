@@ -1,22 +1,40 @@
 import examen.Examen;
-public class DemandeRDV {
-    private String numDemande;
+import uqam.inf5153.gestionExamensMed.interf.IDemandeRDV;
+
+public class DemandeRDV implements IDemandeRDV {
+    private int numDemande;
     private String codePatient;
+
+    private String nomPatient;
+//TODO
+//= labelExamen, composer de nom de l'examen et ses parametres
     private Examen descriptionExamen;
 
     // Constructeur
-    public DemandeRDV(String numDemande, String codePatient, Examen descriptionExamen) {
+    public DemandeRDV(int numDemande, String nomPatient,String codePatient, Examen descriptionExamen) {
         this.numDemande = numDemande;
         this.codePatient = codePatient;
+        this.nomPatient = nomPatient;
         this.descriptionExamen = descriptionExamen;
     }
 
     // Getters et Setters
-    public String getNumDemande() {
+    public int getNumDemande() {
         return numDemande;
     }
 
-    public void setNumDemande(String numDemande) {
+    @Override
+    public String getNomPatient() {
+        return nomPatient;
+    }
+
+    @Override
+    public String getLabelExamen() {
+        //TODO return descriptionExamen;
+        return null;
+    }
+
+    public void setNumDemande(int numDemande) {
         this.numDemande = numDemande;
     }
 
