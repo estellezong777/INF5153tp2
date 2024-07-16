@@ -13,7 +13,7 @@ public interface IDemandeRDV {
 	
 	/**
 	 * Cette méthode construit une chaine de caractères composée
-	 * des données de la demande RDV
+	 * des données de la demande model.RDV
 	 * @return
 	 */
 	public String getLabelExamen() ; 

@@ -11,15 +11,19 @@ public abstract class ExamenCompose extends Examen {
 
 
 
-    public void addExamen(Examen examen) {
+
+
+    public void addExamen(ExamenElem examen) {
         listExamensElem.add(examen);
     }
 
-    public void removeExamen(Examen examen) {
+    public void removeExamen(ExamenElem examen) {
         listExamensElem.remove(examen);
     }
 
     public ArrayList<Examen> getListExamensElem() {
         return listExamensElem;
     }
+
+
 }

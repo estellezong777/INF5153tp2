@@ -3,9 +3,11 @@ package uqam.inf5153.gestionExamensMed.testModel;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import model.InitApp;
 import uqam.inf5153.gestionExamensMed.interf.IExaMedicalHandler;
 import uqam.inf5153.gestionExamensMed.interf.IExamenMedical;
 import uqam.inf5153.gestionExamensMed.interf.IPatient;
+
 
 public class ExaMedHandler implements IExaMedicalHandler {
 
@@ -39,12 +41,12 @@ public class ExaMedHandler implements IExaMedicalHandler {
      *
      */
 
+
     // Use function in appcontroller?
     public void defaultModelInitialisation() {
-        DefaultPatient p1 = new DefaultPatient("ABC110" , "Alice") ;
-        DefaultPatient p2 = new DefaultPatient("ALL120" , "Bob") ;
-        patientList.add(p1) ;
-        patientList.add(p2) ;
+        //new Patients
+        InitApp initApp = new InitApp();
+        initApp.ModelInitialisation();
 
         ArrayList<IExamenMedical> examensList1 = new ArrayList<IExamenMedical>() ;
         DefaultExamenMedical examen ;
@@ -64,7 +66,7 @@ public class ExaMedHandler implements IExaMedicalHandler {
         String codeP1 = patientList.get(0).getCodePatient() ;
         examemPrescritTable.putIfAbsent(codeP1, examensList1) ;
 
-        // Examen du Patient 2
+        // Examen du model.Patient 2
         ArrayList<IExamenMedical> examensList2 = new ArrayList<IExamenMedical>() ;
         examen = new DefaultExamenMedical(generateur.generate(), ConstanteExamen.ExamenThyroide) ;
         examensList2.add(examen);

@@ -36,17 +36,17 @@ public class NotificationPanel extends JPanel {
 		
 		notifServiceTextArea = new JTextArea();
 		notifServiceTextArea.setEditable(false);
-		notifServiceTextArea.setBorder(new TitledBorder(null, "Notification Service", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		notifServiceTextArea.setBorder(new TitledBorder(null, "Notification model.Service", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		splitPane_1.setLeftComponent(notifServiceTextArea);
 		
 		notifPatientTextArea = new JTextArea();
 		notifPatientTextArea.setEditable(false);
-		notifPatientTextArea.setBorder(new TitledBorder(null, "Notification Patient", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		notifPatientTextArea.setBorder(new TitledBorder(null, "Notification model.Patient", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		splitPane_1.setRightComponent(notifPatientTextArea);
 		
 		notifMedecinTextArea = new JTextArea();
 		notifMedecinTextArea.setEditable(false);
-		notifMedecinTextArea.setBorder(new TitledBorder(null, "Notification Medecin", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		notifMedecinTextArea.setBorder(new TitledBorder(null, "Notification model.Medecin", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		splitPane.setLeftComponent(notifMedecinTextArea);
 	}
 	

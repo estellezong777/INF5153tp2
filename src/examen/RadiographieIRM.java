@@ -3,10 +3,10 @@ package examen;
 import examen.types.RadiographieIRMPart;
 import examen.types.RadiographieRayonXPart;
 
-public class RadiographieIRM extends Examen{
+public class RadiographieIRM extends ExamenElem{
     private RadiographieIRMPart type;
 
     public RadiographieIRM(RadiographieIRMPart type){
-        this.type = type;
+        super("RadiographieIRM",type);
     }
 }

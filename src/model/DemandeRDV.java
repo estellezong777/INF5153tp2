@@ -1,3 +1,5 @@
+package model;
+
 import examen.Examen;
 import uqam.inf5153.gestionExamensMed.interf.IDemandeRDV;
 
@@ -8,14 +10,14 @@ public class DemandeRDV implements IDemandeRDV {
     private String nomPatient;
 //TODO
 //= labelExamen, composer de nom de l'examen et ses parametres
-    private Examen descriptionExamen;
+    private String descriptionExamen;
 
     // Constructeur
-    public DemandeRDV(int numDemande, String nomPatient,String codePatient, Examen descriptionExamen) {
-        this.numDemande = numDemande;
+    public DemandeRDV(String nomPatient,String codePatient, String descriptionExamen) {
         this.codePatient = codePatient;
         this.nomPatient = nomPatient;
         this.descriptionExamen = descriptionExamen;
+        this.numDemande = DemandeRDV.GenerateurCodeDemande.getInstance().generate();
     }
 
     // Getters et Setters
@@ -46,20 +48,40 @@ public class DemandeRDV implements IDemandeRDV {
         this.codePatient = codePatient;
     }
 
-    public Examen getDescriptionExamen() {
+    public String getDescriptionExamen() {
         return descriptionExamen;
     }
 
-    public void setDescriptionExamen(Examen descriptionExamen) {
+    public void setDescriptionExamen(String descriptionExamen) {
         this.descriptionExamen = descriptionExamen;
     }
 
     @Override
     public String toString() {
-        return "DemandeRDV{" +
+        return "model.DemandeRDV{" +
                 "numDemande='" + numDemande + '\'' +
                 ", codePatient='" + codePatient + '\'' +
                 ", descriptionExamen=" + descriptionExamen +
                 '}';
     }
+
+
+    private static class GenerateurCodeDemande{
+        private static GenerateurCodeDemande generateurCodeDemande;
+        private int counter;
+        private GenerateurCodeDemande(){
+            counter = 0;
+        }
+
+        public static GenerateurCodeDemande getInstance(){
+            if (generateurCodeDemande== null){
+                generateurCodeDemande= new GenerateurCodeDemande();
+            }return  generateurCodeDemande;
+        }
+
+        public int generate(){
+            this.counter++;
+            return counter;
+        }}
+
 }

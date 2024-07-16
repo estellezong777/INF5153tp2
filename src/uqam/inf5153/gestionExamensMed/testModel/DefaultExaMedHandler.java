@@ -62,7 +62,7 @@ public class DefaultExaMedHandler implements IExaMedicalHandler {
 		 String codeP1 = patientList.get(0).getCodePatient() ; 		
 		 examemPrescritTable.putIfAbsent(codeP1, examensList1) ; 
 
-		 // Examen du Patient 2 
+		 // Examen du model.Patient 2
 		 ArrayList<IExamenMedical> examensList2 = new ArrayList<IExamenMedical>() ; 
 		 examen = new DefaultExamenMedical(generateur.generate(), ConstanteExamen.ExamenThyroide) ;
 		 examensList2.add(examen); 

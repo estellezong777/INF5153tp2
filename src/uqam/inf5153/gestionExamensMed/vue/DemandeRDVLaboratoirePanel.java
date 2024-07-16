@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
 /**
- * Implémente le panneau qui contient la table des demandes de RDV 
+ * Implémente le panneau qui contient la table des demandes de model.RDV
  *  
  */
 public class DemandeRDVLaboratoirePanel extends JPanel {
@@ -63,10 +63,10 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 		panel.setBorder(new TitledBorder(null, "Traitements pr\u00E9d\u00E9finis", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		add(panel, BorderLayout.NORTH);
 
-		attribuerRDVButton = new JButton("Attribuer RDV");
+		attribuerRDVButton = new JButton("Attribuer model.RDV");
 		attribuerRDVButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				attributionRDVPredefini() ; 
+				attributionRDVPredefini() ; ///TODO appcontroller.sendToLab the demandeRDV
 			}
 		});
 		panel.add(attribuerRDVButton);
@@ -82,16 +82,16 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	}
 
 	/**
-	 * Construction du Model de la table des RDV 
+	 * Construction du Model de la table des model.RDV
 	 * @return
 	 */
 	private DefaultTableModel buildTableModel() {
 		DefaultTableModel res = new DefaultTableModel(); 
 
 		res.addColumn("Laboratoire");
-		res.addColumn("Demande RDV");
-		res.addColumn("Date RDV (JJ-MM-AAAA)");
-		res.addColumn("Heure RDV ( HH:MI)");
+		res.addColumn("Demande model.RDV");
+		res.addColumn("Date model.RDV (JJ-MM-AAAA)");
+		res.addColumn("Heure model.RDV ( HH:MI)");
 		res.addColumn("Examen (Oui/Non)");
 
 		if (laboratoireController != null) {
@@ -140,7 +140,7 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 			String dateRDV = (String)tableRDV.getValueAt(i, 2) ;
 			String hRDV    = (String)tableRDV.getValueAt(i, 3) ; 
 
-			System.out.print ("Demande RDV : " + labName + "\t" + 
+			System.out.print ("Demande model.RDV : " + labName + "\t" +
 					"Desc. : " + dataRDV + "\t" + dateRDV ) ;
 
 			if (dateRDV != null && dateRDV.length() != 0) {
@@ -157,10 +157,10 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	}
 
 	/**
-	 * Callback du bouton  Attribuer RDV 
+	 * Callback du bouton  Attribuer model.RDV
 	 * 
-	 * Attribut  des RDV (aléatoire) aux 80% des demandes    
-	 * Attribuer des RDV 
+	 * Attribut  des model.RDV (aléatoire) aux 80% des demandes
+	 * Attribuer des model.RDV
 	 * 
 	 */
 	private void attributionRDVPredefini() {
@@ -171,7 +171,7 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 			if (nbreDemandeRDV != 0) {
 				for (int i=0 ; i < nbreDemandeRDV ; i++) {
 
-					// 80% des demandes de RDV auront un RDV 
+					// 80% des demandes de model.RDV auront un model.RDV
 					if (Math.random()>0.2) {
 						PredefinedRDV rdv = rdvAleatoire() ; 
 
@@ -207,8 +207,8 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	}
 
 	/**
-	 * Retourne un RDV prédéfini aléatoirement parmi 
-	 * la liste des RDV 
+	 * Retourne un model.RDV prédéfini aléatoirement parmi
+	 * la liste des model.RDV
 	 * @return
 	 */
 	private static PredefinedRDV rdvAleatoire() {
@@ -221,8 +221,8 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	}
 
 	/**
-	 * Méthode utilitaire pour créer des dates de RDV
-	 * afin d'attribuer des RDV automatiquement  
+	 * Méthode utilitaire pour créer des dates de model.RDV
+	 * afin d'attribuer des model.RDV automatiquement
 	 */
 	private static void initPredefList() {
 		PredefinedRDV prefRDV ; 
@@ -254,7 +254,7 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 
 
 	/**
-	 * Classe locale pour stocker les data d'un RDV 
+	 * Classe locale pour stocker les data d'un model.RDV
 	 *  
 	 */
 	static class  DataRDV {
@@ -278,7 +278,7 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	}
 }
 /**
- * Data class pour stocker des données d'un RDV 
+ * Data class pour stocker des données d'un model.RDV
  * 
  */
 class PredefinedRDV { 

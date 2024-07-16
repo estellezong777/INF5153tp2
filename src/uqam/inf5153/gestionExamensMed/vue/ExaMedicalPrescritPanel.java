@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
- * Implémente la panneau qui affiche la liste des examens prescrits pour chaque Patient  
+ * Implémente la panneau qui affiche la liste des examens prescrits pour chaque model.Patient
  * 
  * 
  */
@@ -52,7 +52,7 @@ public class ExaMedicalPrescritPanel extends JPanel {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		add(panel, BorderLayout.SOUTH);
 
-		demandeRDVButton = new JButton("Demandez les RDV");
+		demandeRDVButton = new JButton("Demandez les model.RDV");
 		demandeRDVButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				generationDemandesRDV() ; 
@@ -76,7 +76,7 @@ public class ExaMedicalPrescritPanel extends JPanel {
 		if (examenHandler != null) {
 			ArrayList<IPatient> patientList = examenHandler.examPatientList() ; 
 			for (IPatient unPatient : patientList) {
-				System.out.println ("Un Patient : " + unPatient.getCodePatient() + 
+				System.out.println ("Un model.Patient : " + unPatient.getCodePatient() +
 						"Nom : " + unPatient.getNomPatient()) ; 
 
 				DefaultMutableTreeNode patientNode = new DefaultMutableTreeNode(new ExamenNode(unPatient)) ;
@@ -118,8 +118,8 @@ public class ExaMedicalPrescritPanel extends JPanel {
 	}	
 
 	/**
-	 * Callback du bouton Demande de RDV
-	 * Doit lancer la méthode de votre modèle qui génére les demandes de RDV  
+	 * Callback du bouton Demande de model.RDV
+	 * Doit lancer la méthode de votre modèle qui génére les demandes de model.RDV
 	 * 
 	 */
 	private void generationDemandesRDV() {

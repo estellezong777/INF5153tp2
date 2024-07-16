@@ -1,5 +1,10 @@
 package examen;
 
-public class Myelogramme extends Examen{
+import examen.types.MyelogrammeType;
 
+public class Myelogramme extends ExamenElem{
+    private MyelogrammeType type;
+    public Myelogramme(MyelogrammeType type){
+        super("Myelogramme", type);
+    }
 }

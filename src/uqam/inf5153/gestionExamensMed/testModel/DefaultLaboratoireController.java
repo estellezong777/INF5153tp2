@@ -62,7 +62,7 @@ public class DefaultLaboratoireController implements ILaboratoireController {
 		listLaboratoire.add(lab) ; 
 		
 		
-		// Création de demandes de RDV
+		// Création de demandes de model.RDV
 		DefaultDemandeRDV demandeRDV ; 
 
 		ArrayList<IDemandeRDV> listDenmande = new ArrayList<IDemandeRDV>() ;

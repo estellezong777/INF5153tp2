@@ -1,13 +1,15 @@
 package examen;
 import examen.types.AnalyseDeSangParameter;
+import model.Visitor;
 
 
-public class AnalyseDeSang extends Examen {
+public class AnalyseDeSang extends ExamenElem {
     private AnalyseDeSangParameter type;
 
     public AnalyseDeSang(AnalyseDeSangParameter type) {
-        this.type = type;
+        super("Analyse de sang",type);
     }
+
 
 
     public void setType(AnalyseDeSangParameter type) {
@@ -19,7 +21,9 @@ public class AnalyseDeSang extends Examen {
         return this.type;
     }
 
-//    public void accept(Visitor visitor) {
+
+
+//    public void accept(model.Visitor visitor) {
 //        visitor.visit(this);
 //    }
 }

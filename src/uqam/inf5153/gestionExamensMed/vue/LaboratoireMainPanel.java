@@ -34,7 +34,7 @@ public class LaboratoireMainPanel extends JPanel {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		add(controlLabPanel, BorderLayout.SOUTH);
 		
-		transRDVButton = new JButton("Transmettre RDV");
+		transRDVButton = new JButton("Transmettre model.RDV");
 		transRDVButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				doTransmettreRDV() ; 

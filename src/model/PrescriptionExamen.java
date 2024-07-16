@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package model;
+
 import examen.Examen;
 public class PrescriptionExamen {
     private Examen examen;
@@ -7,10 +8,9 @@ public class PrescriptionExamen {
     private AppController appController;
 
     // Constructor
-    public PrescriptionExamen(Medecin medecin, Patient patient, AppController appController, Examen examen) {
+    public PrescriptionExamen(Medecin medecin, Patient patient, Examen examen) {
         this.medecin = medecin;
         this.patient = patient;
-        this.appController = appController;
         this.examen = examen;
     }
 

@@ -1,3 +1,5 @@
+package model;
+
 import examen.AnalyseDeSang;
 import examen.AnalyseUrine;
 import examen.ExamenCompose;
@@ -8,6 +10,6 @@ public interface Visitor {
 
     void visit(Examen examen);
 
-    void visit(ExamenCompose examenCompose);
+
 
 }

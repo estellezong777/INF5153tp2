@@ -3,10 +3,10 @@ package examen;
 
 import examen.types.EchographiePart;
 
-public class Echographie extends Examen{
+public class Echographie extends ExamenElem{
     private EchographiePart type;
 
     public Echographie(EchographiePart type){
-        this.type = type;
+        super("Echographie",type);
     }
 }

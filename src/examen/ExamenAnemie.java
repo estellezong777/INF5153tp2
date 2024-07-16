@@ -6,8 +6,9 @@ import examen.types.AnalyseUrineParameter;
 public class ExamenAnemie extends ExamenCompose{
     public ExamenAnemie(){
         super();
+        this.name = "ExamenAnemie";
         listExamensElem.add(new AnalyseDeSang(AnalyseDeSangParameter.FSC));
-        listExamensElem.add(new Myelogramme());
+        listExamensElem.add(new Myelogramme(null));
         listExamensElem.add(new AnalyseUrine(AnalyseUrineParameter.PROTEINURIE));
         listExamensElem.add(new AnalyseUrine(AnalyseUrineParameter.GLYCOSURIE));
     }

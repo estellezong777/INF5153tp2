@@ -82,7 +82,7 @@ public class GestionExaMedicalMainGUI {
 		splitPane.setRightComponent(notificationPanel);
 		
 		notificationPanel.ajouteNotificationMsgMedecin("Ici, affichage des notifications pour le médecin" );
-		notificationPanel.ajouteNotificationMsgService("Ici, affichage des notifications pour le Service" );
+		notificationPanel.ajouteNotificationMsgService("Ici, affichage des notifications pour le model.Service" );
 		notificationPanel.ajouteNotificationMsgPatient("Ici, affichage des notifications pour le patient" );		
 		
 	}

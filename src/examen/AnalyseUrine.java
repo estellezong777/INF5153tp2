@@ -1,11 +1,12 @@
 package examen;
 import examen.types.AnalyseUrineParameter;
 
-public class AnalyseUrine extends Examen{
+public class AnalyseUrine extends ExamenElem{
     private AnalyseUrineParameter type;
 
     public AnalyseUrine(AnalyseUrineParameter type){
-        this.type = type;
+        super("Analyse d'Urine",type);
+
     }
 
     public void setType(AnalyseUrineParameter type) {
@@ -17,7 +18,7 @@ public class AnalyseUrine extends Examen{
         return null;
     }
 
-//    public void accept(Visitor visitor) {
+//    public void accept(model.Visitor visitor) {
 //        visitor.visit(this);
 //    }
 }
