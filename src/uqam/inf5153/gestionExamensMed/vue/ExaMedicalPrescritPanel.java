@@ -30,11 +30,14 @@ public class ExaMedicalPrescritPanel extends JPanel {
 	private IExaMedicalHandler examenHandler ; 
 	private JButton demandeRDVButton;
 
+	private DemandeRDVLaboratoirePanel demandeRDVLaboratoirePanel;
+
 	/**
 	 * Create the panel.
 	 */
 	public ExaMedicalPrescritPanel( IExaMedicalHandler examenHandler ) {
-		this.examenHandler  = examenHandler ; 
+		this.examenHandler  = examenHandler ;
+
 		setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -99,6 +102,10 @@ public class ExaMedicalPrescritPanel extends JPanel {
 		return model ; 
 	}
 
+	public void setDemandeRDVLaboratoirePanel(DemandeRDVLaboratoirePanel demandeRDVLaboratoirePanel) {
+		this.demandeRDVLaboratoirePanel = demandeRDVLaboratoirePanel;
+	}
+
 	/**
 	 * 
 	 * @param examenNode
@@ -123,7 +130,8 @@ public class ExaMedicalPrescritPanel extends JPanel {
 	 * 
 	 */
 	private void generationDemandesRDV() {
-		System.err.println (this.getClass().getSimpleName() + "::generationDemandesRDV() Not Implémented");
+		//System.err.println (this.getClass().getSimpleName() + "::generationDemandesRDV() Not Implémented");
+		demandeRDVLaboratoirePanel.getDemandeRDVtable().setModel(demandeRDVLaboratoirePanel.buildTableModel()) ;
 	}
 	
 }

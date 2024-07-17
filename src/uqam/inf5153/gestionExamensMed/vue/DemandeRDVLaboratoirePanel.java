@@ -22,7 +22,9 @@ import javax.swing.JScrollPane;
  *  
  */
 public class DemandeRDVLaboratoirePanel extends JPanel {
-	static ArrayList<PredefinedRDV> predefinedRDVList = new  ArrayList<PredefinedRDV>() ; 
+	static ArrayList<PredefinedRDV> predefinedRDVList = new  ArrayList<PredefinedRDV>() ;
+
+
 
 	static {
 		initPredefList() ; 
@@ -63,7 +65,7 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 		panel.setBorder(new TitledBorder(null, "Traitements pr\u00E9d\u00E9finis", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		add(panel, BorderLayout.NORTH);
 
-		attribuerRDVButton = new JButton("Attribuer model.RDV");
+		attribuerRDVButton = new JButton("Attribuer RDV");
 		attribuerRDVButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				attributionRDVPredefini() ; ///TODO appcontroller.sendToLab the demandeRDV
@@ -81,17 +83,21 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 
 	}
 
+	public JTable getDemandeRDVtable() {
+		return demandeRDVtable;
+	}
+
 	/**
 	 * Construction du Model de la table des model.RDV
 	 * @return
 	 */
-	private DefaultTableModel buildTableModel() {
+	public DefaultTableModel buildTableModel() {
 		DefaultTableModel res = new DefaultTableModel(); 
 
 		res.addColumn("Laboratoire");
-		res.addColumn("Demande model.RDV");
-		res.addColumn("Date model.RDV (JJ-MM-AAAA)");
-		res.addColumn("Heure model.RDV ( HH:MI)");
+		res.addColumn("Demande RDV");
+		res.addColumn("Date RDV (JJ-MM-AAAA)");
+		res.addColumn("Heure RDV ( HH:MI)");
 		res.addColumn("Examen (Oui/Non)");
 
 		if (laboratoireController != null) {
@@ -140,7 +146,7 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 			String dateRDV = (String)tableRDV.getValueAt(i, 2) ;
 			String hRDV    = (String)tableRDV.getValueAt(i, 3) ; 
 
-			System.out.print ("Demande model.RDV : " + labName + "\t" +
+			System.out.print ("Demande RDV : " + labName + "\t" +
 					"Desc. : " + dataRDV + "\t" + dateRDV ) ;
 
 			if (dateRDV != null && dateRDV.length() != 0) {

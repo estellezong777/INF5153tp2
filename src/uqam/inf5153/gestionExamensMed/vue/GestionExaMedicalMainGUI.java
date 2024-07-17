@@ -6,10 +6,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 
+import laboratoire.LaboController;
 import uqam.inf5153.gestionExamensMed.interf.IExaMedicalHandler;
 import uqam.inf5153.gestionExamensMed.interf.ILaboratoireController;
 import uqam.inf5153.gestionExamensMed.testModel.DefaultExaMedHandler;
-import uqam.inf5153.gestionExamensMed.testModel.DefaultLaboratoireController;
+//import uqam.inf5153.gestionExamensMed.testModel.DefaultLaboratoireController;
 
 /**
  * 
@@ -68,14 +69,20 @@ public class GestionExaMedicalMainGUI {
 		
 		exaMedPrescritPanel = new ExaMedicalPrescritPanel(examHandler);
 		frame.getContentPane().add(exaMedPrescritPanel, BorderLayout.WEST);
-		
-		ILaboratoireController defaultLabController = null ; 
-		
+
+		//
+		//ILaboratoireController defaultLabController = null ;
+		ILaboratoireController labController = new LaboController();
+
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setResizeWeight(0.35);
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 		
-		laboratoireMainPanel = new LaboratoireMainPanel(defaultLabController);
+		//laboratoireMainPanel = new LaboratoireMainPanel(defaultLabController);
+		laboratoireMainPanel = new LaboratoireMainPanel(labController);
+		////////////////++++++++++++++++++++++++++++++++++把exaMedPrescritPanel 和demandeRDVPanel关联起来，以便exaPanel
+		//点击demandeRdv 来调用demandeRdv 里的方法来afficher table
+		exaMedPrescritPanel.setDemandeRDVLaboratoirePanel(laboratoireMainPanel.getDemandeRDVLaboratoirePanel());
 		splitPane.setLeftComponent(laboratoireMainPanel);
 		
 		notificationPanel = new NotificationPanel();

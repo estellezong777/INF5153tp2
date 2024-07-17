@@ -27,6 +27,7 @@ public class LaboratoireMainPanel extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		
 		demandeRDVLaboratoirePanel = new DemandeRDVLaboratoirePanel(laboratoireController);
+
 		add(demandeRDVLaboratoirePanel, BorderLayout.CENTER);
 		
 		JPanel controlLabPanel = new JPanel();
@@ -57,6 +58,8 @@ public class LaboratoireMainPanel extends JPanel {
 	private void doTransmettreRDV() {
 		demandeRDVLaboratoirePanel.doTransmettreRDV() ;
 	}
-	
 
+	public DemandeRDVLaboratoirePanel getDemandeRDVLaboratoirePanel() {
+		return demandeRDVLaboratoirePanel;
+	}
 }

@@ -2,6 +2,7 @@ package laboratoire;
 
 import examen.Examen;
 import model.Medecin;
+import uqam.inf5153.gestionExamensMed.interf.IDemandeRDV;
 import uqam.inf5153.gestionExamensMed.interf.ILaboratoire;
 
 import java.util.ArrayList;
@@ -11,10 +12,15 @@ public class Laboratoire implements ILaboratoire {
     private  String NomLaboratoire;
     private ArrayList<Examen> listExamensProvide;
 
+    private ArrayList<IDemandeRDV> listDemandeRDV;
+
+
+
 
     public Laboratoire(String NomLabotatoire, ArrayList<Examen> listExamensProvide){
         this.NomLaboratoire=NomLabotatoire;
         this.listExamensProvide= new ArrayList<Examen>(listExamensProvide);
+        this.listDemandeRDV = new ArrayList<>();
         this.CodeLaboratoire = Laboratoire.GenerateurCodeLaboratoire.getInstance().generate();
     }
 
@@ -31,6 +37,14 @@ public class Laboratoire implements ILaboratoire {
     @Override
     public String getNomLaboratoire() {
         return NomLaboratoire;
+    }
+
+    public void setListDemandeRDV(ArrayList<IDemandeRDV> listDemandeRDV) {
+        this.listDemandeRDV = listDemandeRDV;
+    }
+
+    public ArrayList<IDemandeRDV> getListDemandeRDV() {
+        return listDemandeRDV;
     }
 
     private static class GenerateurCodeLaboratoire{
