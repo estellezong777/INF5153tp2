@@ -7,6 +7,7 @@ import examen.types.RadiographieIRMPart;
 import examen.types.RadiographieRayonXPart;
 import laboratoire.LaboController;
 import laboratoire.Laboratoire;
+
 import uqam.inf5153.gestionExamensMed.interf.ILaboratoire;
 
 import java.util.ArrayList;
@@ -107,5 +108,9 @@ public class InitApp {
 
         // Envoyer la demandeRDV au laboratoire correspondante
         laboController.distribueDemandeRDV();
+
+
+        ExaMedHandler exaMedHandle= new ExaMedHandler(appController.getListPatient(),appController.gethtablePrescriptions()) ;
+        appController.exaMedHandler=exaMedHandle;
     }
 }

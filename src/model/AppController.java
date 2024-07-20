@@ -11,8 +11,11 @@ import uqam.inf5153.gestionExamensMed.interf.IEvenement;
 import uqam.inf5153.gestionExamensMed.interf.ILaboratoire;
 import uqam.inf5153.gestionExamensMed.interf.IObserver;
 
+
+
 public class AppController {
     private ArrayList<Examen> listExamensElementaires;
+    public ExaMedHandler exaMedHandler;
 
     /**
     * Utilisons une table de hachage pour stocker les examens dans la description d'un patient.
@@ -68,6 +71,9 @@ public class AppController {
         return listLabo;
     }
 
+    public ArrayList<Patient> getListPatient() {
+        return listPatient;
+    }
 
     public void enrePresTable(PrescriptionExamen prescriptionExamen, String codePatient){
 
@@ -197,6 +203,8 @@ public class AppController {
             evenement.notifierObserver();
         }
     }
+
+
     }
 
 

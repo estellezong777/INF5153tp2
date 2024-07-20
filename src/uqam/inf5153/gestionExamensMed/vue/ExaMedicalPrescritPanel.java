@@ -9,6 +9,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import examen.Examen;
 import uqam.inf5153.gestionExamensMed.interf.IExaMedicalHandler;
 import uqam.inf5153.gestionExamensMed.interf.IExamenMedical;
 import uqam.inf5153.gestionExamensMed.interf.IPatient;
@@ -31,8 +32,6 @@ public class ExaMedicalPrescritPanel extends JPanel {
 	private JButton demandeRDVButton;
 
 	private DemandeRDVLaboratoirePanel demandeRDVLaboratoirePanel;
-
-
 
 	/**
 	 * Create the panel.
@@ -79,7 +78,7 @@ public class ExaMedicalPrescritPanel extends JPanel {
 
 		// parcours des patients
 		if (examenHandler != null) {
-			ArrayList<IPatient> patientList = examenHandler.examPatientList() ; 
+			ArrayList<IPatient> patientList = examenHandler.examPatientList() ;
 			for (IPatient unPatient : patientList) {
 				System.out.println ("Un Patient : " + unPatient.getCodePatient() +
 						"Nom : " + unPatient.getNomPatient()) ; 
@@ -88,9 +87,9 @@ public class ExaMedicalPrescritPanel extends JPanel {
 
 				root.add(patientNode);	
 
-				ArrayList<IExamenMedical> examenList = examenHandler.examenPrescritList(unPatient.getCodePatient()) ;
-				for (IExamenMedical unExamen : examenList) {
-					System.out.println ("Un Examen : " + unExamen.getNomExamen()) ; 								
+				ArrayList<Examen> examenList = examenHandler.examenPrescritList(unPatient.getCodePatient()) ;
+				for (Examen unExamen : examenList) {
+					System.out.println ("Un Examen : " + unExamen.getName()) ;
 					DefaultMutableTreeNode examenNode = new DefaultMutableTreeNode(new ExamenNode(unExamen)) ;				
 					patientNode.add(examenNode);
 
@@ -113,10 +112,10 @@ public class ExaMedicalPrescritPanel extends JPanel {
 	 * @param examenNode
 	 * @param examenMedical
 	 */
-	private static void populateNode(DefaultMutableTreeNode examenNode ,IExamenMedical examenMedical) {
-		ArrayList<IExamenMedical> examList = examenMedical.getComposantExamenList() ;
+	private static void populateNode(DefaultMutableTreeNode examenNode , Examen examenMedical) {
+		ArrayList<Examen> examList = examenMedical.getListExamensElem() ;
 
-		for (IExamenMedical unExamen : examList) {		
+		for (Examen unExamen : examList) {
 			DefaultMutableTreeNode examenChildNode = new DefaultMutableTreeNode(new ExamenNode(unExamen)) ;
 			examenNode.add(examenChildNode); 
 
@@ -136,7 +135,7 @@ public class ExaMedicalPrescritPanel extends JPanel {
 	}
 	
 }
-// ============================================================================
+
 /**
  * Contient les données d'un noeud du JTree
  */
@@ -154,10 +153,10 @@ class ExamenNode {
 		String res = null ;  
 
 		if (dataNode != null) {
-			if (dataNode instanceof IExamenMedical) {				
-				res = ((IExamenMedical)dataNode).getNomExamen() ;
+			if (dataNode instanceof Examen<?>) {
+				res = ((Examen)dataNode).getName() ;
 
-				res += " " + ((IExamenMedical)dataNode).paramsToString();
+				res += " " + ((Examen)dataNode);
 
 			} else if (dataNode instanceof IPatient) {
 				res = ((IPatient)dataNode).getNomPatient() ; 

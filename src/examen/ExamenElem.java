@@ -3,10 +3,11 @@ package examen;
 public class ExamenElem<T extends Enum<T>> extends Examen{
     private String name;
     private T type;
+    boolean isElemen = true;
 
     public ExamenElem(String name, T type) {
-        this.type = type;
-        this.name = name;
+       this.name=name;
+       this.type=type;
     }
 
     @Override
@@ -17,4 +18,7 @@ public class ExamenElem<T extends Enum<T>> extends Examen{
     public T getType() {
         return type;
     }
+    public boolean isExamenElementaire() {
+        return isElemen;
+    };
 }

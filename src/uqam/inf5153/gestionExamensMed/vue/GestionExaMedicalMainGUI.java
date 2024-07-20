@@ -73,7 +73,7 @@ public class GestionExaMedicalMainGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		IExaMedicalHandler examHandler = null ; 
+		IExaMedicalHandler examHandler = appController.exaMedHandler ;
 		
 		
 		exaMedPrescritPanel = new ExaMedicalPrescritPanel(examHandler);
