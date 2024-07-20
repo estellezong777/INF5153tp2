@@ -6,8 +6,7 @@ import examen.types.EchographiePart;
 public class ExamenThyroide extends ExamenCompose{
 
     public ExamenThyroide(){
-        super();
-        this.name = "ExamenThyroide";
+        super("ExamenThyroide");
         listExamensElem.add(new Echographie(EchographiePart.THYROIDE));
         listExamensElem.add(new ExamenAnemie());
         listExamensElem.add(new AnalyseDeSang(AnalyseDeSangParameter.TSH));

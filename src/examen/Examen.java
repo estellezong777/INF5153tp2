@@ -36,4 +36,10 @@ public abstract class Examen<T extends Enum<T>> implements IExamenMedical {
 
     };
 
+    @Override
+    public String toString() {
+        return "Examen{" +
+                "name='" + name + '\'' +
+                '}';
     }
+}

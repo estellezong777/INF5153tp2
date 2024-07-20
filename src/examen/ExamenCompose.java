@@ -6,8 +6,8 @@ public abstract class ExamenCompose extends Examen {
     boolean isElemen = false;
     protected String name;
 
-    public ExamenCompose() {
-
+    public ExamenCompose(String name) {
+        this.name = name;
         this.listExamensElem = new ArrayList<>();
 
     }
@@ -27,5 +27,14 @@ public abstract class ExamenCompose extends Examen {
         return listExamensElem;
     }
 
+    @Override
+    public String toString() {
+        return "ExamenCompose{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 
+    public String getName(){
+        return name ;
+    }
 }

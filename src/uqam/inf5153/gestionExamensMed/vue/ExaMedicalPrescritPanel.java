@@ -10,6 +10,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import examen.Examen;
+import examen.ExamenCompose;
 import uqam.inf5153.gestionExamensMed.interf.IExaMedicalHandler;
 import uqam.inf5153.gestionExamensMed.interf.IExamenMedical;
 import uqam.inf5153.gestionExamensMed.interf.IPatient;
@@ -156,7 +157,6 @@ class ExamenNode {
 			if (dataNode instanceof Examen<?>) {
 				res = ((Examen)dataNode).getName() ;
 
-				res += " " + ((Examen)dataNode);
 
 			} else if (dataNode instanceof IPatient) {
 				res = ((IPatient)dataNode).getNomPatient() ; 
