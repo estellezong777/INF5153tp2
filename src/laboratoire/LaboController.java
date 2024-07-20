@@ -18,6 +18,8 @@ public class LaboController implements ILaboratoireController {
 
         private ArrayList<ILaboratoire> listLabo;
 
+        private ArrayList<String> resultExamenlist;
+
     private HashMap<String, ArrayList<IDemandeRDV>> demandeRDVsMap = new HashMap<>();
 
         // Constructeur
@@ -26,6 +28,7 @@ public class LaboController implements ILaboratoireController {
             this.listDemandeRDV = new ArrayList<>();
             this.listRDVtraite = new ArrayList<>();
             this.listLabo = new ArrayList<>();
+            this.resultExamenlist = new ArrayList<>();
         }
 
 
@@ -51,6 +54,13 @@ public class LaboController implements ILaboratoireController {
         this.demandeRDVsMap = demandeRDVMap;
     }
 
+    public void recevoirReponseResultExamen(ArrayList<String> resultExamenlist){
+        this.resultExamenlist =resultExamenlist;
+
+    }
+
+
+
     public void setListLabo(ArrayList<ILaboratoire> listLabo) {
         this.listLabo = listLabo;
     }
@@ -74,6 +84,10 @@ public class LaboController implements ILaboratoireController {
                 System.out.println("listDemandeRdv after set"+listDemandeRdv);
             }
         }
+    }
+
+    public ArrayList<String> getResultExamenlist() {
+        return resultExamenlist;
     }
 }
 

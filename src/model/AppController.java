@@ -31,7 +31,10 @@ public class AppController {
 //    private CentreDeSoinController centreDeSoinController;
 //    private RdvController rdvController;
 
+    //listReponseLabo = rdv reponse
     private ArrayList<String> listReponseLabo;
+
+    private ArrayList<String> examenResultList ;
 
     public AppController() {
         this.listExamensElementaires = new ArrayList<>();
@@ -42,6 +45,7 @@ public class AppController {
 
         this.listLabo = new ArrayList<>();
         this.listReponseLabo = new ArrayList<>();
+        this.examenResultList = new ArrayList<>();
 
         //this.laboController = new LaboController();
 
@@ -135,7 +139,7 @@ public class AppController {
 
     public void recevoirReponseLaboRdv(ArrayList<String> reponseRDV){
         this.listReponseLabo = reponseRDV;
-        System.out.println("reposnerdv"+ reponseRDV);
+
     }
 
 
@@ -181,6 +185,22 @@ public class AppController {
             }
 
         }
+
+    public void recevoirResultExamen( ){
+        this.examenResultList = laboController.getResultExamenlist();
+        System.out.println("examenResultList: "+ examenResultList);
+    }
+
+
+    public void traiterResultExamen(ArrayList<IObserver> listObservers){
+
+        for (String eachResult:examenResultList) {
+
+            IEvenement evenement = new Evenement(eachResult,listObservers);
+            System.out.println("eachResult:"+eachResult);
+            evenement.notifierObserver();
+        }
+    }
 
 
 

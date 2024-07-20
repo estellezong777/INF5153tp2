@@ -50,7 +50,7 @@ public class LaboratoireMainPanel extends JPanel {
 		transExamenButton = new JButton("Transmettre Examen");
 		transExamenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Do Something
+				doTransmettreResult();
 			}
 		});
 		controlLabPanel.add(transExamenButton);
@@ -61,6 +61,10 @@ public class LaboratoireMainPanel extends JPanel {
 	 */
 	private void doTransmettreRDV() {
 		demandeRDVLaboratoirePanel.doTransmettreRDV() ;
+	}
+
+	private void doTransmettreResult(){demandeRDVLaboratoirePanel.doTransmettreResult() ;
+
 	}
 
 	public DemandeRDVLaboratoirePanel getDemandeRDVLaboratoirePanel() {

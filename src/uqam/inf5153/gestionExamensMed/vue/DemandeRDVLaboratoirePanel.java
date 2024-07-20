@@ -1,6 +1,7 @@
 package uqam.inf5153.gestionExamensMed.vue;
 
 import java.awt.BorderLayout;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -9,6 +10,9 @@ import javax.swing.table.DefaultTableModel;
 
 import model.AppController;
 import model.InitApp;
+import model.Logger.Logger;
+import model.Logger.loggerConsole;
+import model.Logger.loggerFile;
 import model.notifieur.AbstractNotifieur;
 import model.notifieur.NotifieurCourriel;
 import model.notifieur.NotifieurSMS;
@@ -29,6 +33,7 @@ import javax.swing.JScrollPane;
  *  
  */
 public class DemandeRDVLaboratoirePanel extends JPanel {
+	ArrayList<String> resultExamList = new ArrayList<>();
 	static ArrayList<PredefinedRDV> predefinedRDVList = new  ArrayList<PredefinedRDV>() ;
 
     private AppController appController;
@@ -50,6 +55,11 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	private GestionExaMedicalMainGUI gestionExaMedicalMainGUI;
 
 	private NotificationPanel notificationPanel;
+
+	ArrayList<IObserver> listObserver = new ArrayList<>();
+
+	private Logger loggerConsole = new loggerConsole();
+
 
 
 	/**
@@ -182,17 +192,30 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 		NotificationPanel notificationPanel = this.notificationPanel;
 
 
-		AbstractNotifieur emailObserver= new NotifieurCourriel(notificationPanel);
-		AbstractNotifieur smsObserver= new NotifieurSMS(notificationPanel);
+		AbstractNotifieur emailObserver= new NotifieurCourriel(notificationPanel,loggerConsole);
+		AbstractNotifieur smsObserver= new NotifieurSMS(notificationPanel, loggerConsole);
 
-		ArrayList<IObserver> listObserver = new ArrayList<>();
+
 		listObserver.add(emailObserver);
 		listObserver.add(smsObserver);
 		appController.traiterResponseLaboRDV(listObserver);
 
-		notificationPanel.ajouteNotificationMsgMedecin("Ici, affichage des notifications pour le médecin" );
+
 
 		//getGestionExaMedicalMainGUI().GestionExaMedicalMainGUI().setNotificationPanel(notificationPanel);
+
+
+	}
+
+	public void doTransmettreResult(){
+		appController.getLaboController().recevoirReponseResultExamen(resultExamList);
+		appController.recevoirResultExamen( );
+
+		//NotificationPanel notificationPanel = this.notificationPanel;
+
+
+
+		appController.traiterResultExamen(listObserver);
 
 
 	}
@@ -242,6 +265,7 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	 */
 	private void faireExamenPredefini() {
 		DefaultTableModel tableRDV = (DefaultTableModel)demandeRDVtable.getModel() ;
+		String examReponse =null;
 
 		if (tableRDV != null ) {
 			int nbreDemandeRDV = tableRDV.getRowCount() ; 
@@ -253,7 +277,12 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 					tableRDV.setValueAt("Oui" , i , 4 );
 
 				}
+				 examReponse =  tableRDV.getValueAt(i,1).toString()+ ", Exam Result:" +tableRDV.getValueAt(i,4).toString();
+				 resultExamList.add(examReponse);
 			}
+
+			System.out.println("---------------------------------------------"+resultExamList);
+
 		}
 
 	}
