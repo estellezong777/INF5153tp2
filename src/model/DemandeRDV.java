@@ -33,7 +33,7 @@ public class DemandeRDV implements IDemandeRDV {
     @Override
     public String getLabelExamen() {
         //TODO return descriptionExamen;
-        return null;
+        return descriptionExamen;
     }
 
     public void setNumDemande(int numDemande) {

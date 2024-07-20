@@ -7,8 +7,13 @@ import java.util.Map;
 
 import examen.Examen;
 import laboratoire.*;
+import model.notifieur.AbstractNotifieur;
+import model.notifieur.NotifieurCourriel;
+import model.notifieur.NotifieurSMS;
 import uqam.inf5153.gestionExamensMed.interf.IDemandeRDV;
+import uqam.inf5153.gestionExamensMed.interf.IEvenement;
 import uqam.inf5153.gestionExamensMed.interf.ILaboratoire;
+import uqam.inf5153.gestionExamensMed.interf.IObserver;
 
 public class AppController {
     //
@@ -26,6 +31,8 @@ public class AppController {
 //    private CentreDeSoinController centreDeSoinController;
 //    private RdvController rdvController;
 
+    private ArrayList<String> listReponseLabo;
+
     public AppController() {
         this.listExamensElementaires = new ArrayList<>();
         this.listExamensCompose = new ArrayList<>();
@@ -34,6 +41,7 @@ public class AppController {
         this.listPatient = new ArrayList<>();
 
         this.listLabo = new ArrayList<>();
+        this.listReponseLabo = new ArrayList<>();
 
         //this.laboController = new LaboController();
 
@@ -53,7 +61,7 @@ public class AppController {
         listMedecin.add(medecin);
     }
 
-    public void enreLabo(Laboratoire labo) {
+    public void enreLabo(ILaboratoire labo) {
         listLabo.add(labo);
     }
 
@@ -123,4 +131,60 @@ public class AppController {
     public void envoyerListLabo(){
         laboController.setListLabo(listLabo);
     }
-}
+
+
+    public void recevoirReponseLaboRdv(ArrayList<String> reponseRDV){
+        this.listReponseLabo = reponseRDV;
+        System.out.println("reposnerdv"+ reponseRDV);
+    }
+
+
+
+    //TODO 换一换
+    public void traiterResponseLaboRDV(ArrayList<IObserver> listObservers){
+        //String codePatient = parts[0].split("=")[1];
+
+        String codePatient = null;
+        String numDemande = null;
+        String dateRDV=null;
+        String heureRDV=null;
+        for (String eachReponse:listReponseLabo) {
+            String[] parts = eachReponse.split(",");
+            for (String part : parts) {
+                    String[] keyValue = part.split("=");
+                    String key = keyValue[0].trim();
+                    String value = keyValue[1].trim();
+
+                    switch (key) {
+                        case "codePatient":
+                            codePatient = value;
+                            break;
+                        case "numDemande":
+                            numDemande = value;
+                            break;
+                        case "dateRDV":
+                            dateRDV = value;
+                            break;
+                        case "heureRDV":
+                            heureRDV = value;
+                            break;
+                    }
+                }
+
+            RDV rdv = new RDV(codePatient,numDemande,dateRDV,heureRDV);
+            IEvenement evenement = new Evenement(eachReponse,listObservers);
+            evenement.notifierObserver();
+
+
+
+
+            }
+
+        }
+
+
+
+
+    }
+
+

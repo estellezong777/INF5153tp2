@@ -11,4 +11,5 @@ public interface ILaboratoire {
 	public ArrayList<Examen> getListExamensProvide();
 
 	public void setListDemandeRDV(ArrayList<IDemandeRDV> listDemandeRDV);
+	public ArrayList<IDemandeRDV> getListDemandeRDV();
 }

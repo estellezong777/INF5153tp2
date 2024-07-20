@@ -2,6 +2,8 @@ package uqam.inf5153.gestionExamensMed.vue;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+
+import model.AppController;
 import uqam.inf5153.gestionExamensMed.interf.ILaboratoireController;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
@@ -23,22 +25,24 @@ public class LaboratoireMainPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public LaboratoireMainPanel(ILaboratoireController laboratoireController) {
+	public LaboratoireMainPanel(AppController appController) {
 		setLayout(new BorderLayout(0, 0));
 		
-		demandeRDVLaboratoirePanel = new DemandeRDVLaboratoirePanel(laboratoireController);
+		demandeRDVLaboratoirePanel = new DemandeRDVLaboratoirePanel(appController);
+
 
 		add(demandeRDVLaboratoirePanel, BorderLayout.CENTER);
+
 		
 		JPanel controlLabPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) controlLabPanel.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		add(controlLabPanel, BorderLayout.SOUTH);
 		
-		transRDVButton = new JButton("Transmettre model.RDV");
+		transRDVButton = new JButton("Transmettre RDV");
 		transRDVButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				doTransmettreRDV() ; 
+				doTransmettreRDV() ;
 			}
 		});
 		controlLabPanel.add(transRDVButton);

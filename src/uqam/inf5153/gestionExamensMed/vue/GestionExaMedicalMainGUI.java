@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 
 import laboratoire.LaboController;
+import model.AppController;
+import model.InitApp;
+import uqam.inf5153.gestionExamensMed.interf.IEvenement;
 import uqam.inf5153.gestionExamensMed.interf.IExaMedicalHandler;
 import uqam.inf5153.gestionExamensMed.interf.ILaboratoireController;
 import uqam.inf5153.gestionExamensMed.testModel.DefaultExaMedHandler;
@@ -28,6 +31,8 @@ public class GestionExaMedicalMainGUI {
 	private NotificationPanel notificationPanel;
 	private ExaMedicalPrescritPanel exaMedPrescritPanel;
 
+
+
 	/**
 	 * Launch the application.
 	 */
@@ -35,7 +40,13 @@ public class GestionExaMedicalMainGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GestionExaMedicalMainGUI window = new GestionExaMedicalMainGUI();
+
+					InitApp initApp = new InitApp();
+					initApp.ModelInitialisation();
+					AppController appController = initApp.appController;
+					ILaboratoireController laboratoireController = appController.getLaboController();
+
+					GestionExaMedicalMainGUI window = new GestionExaMedicalMainGUI(appController);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,8 +58,9 @@ public class GestionExaMedicalMainGUI {
 	/**
 	 * Create the application.
 	 */
-	public GestionExaMedicalMainGUI() {
-		initialize();
+	public GestionExaMedicalMainGUI(AppController appController) {
+		initialize(appController);
+
 	}
 
 	/**
@@ -58,7 +70,7 @@ public class GestionExaMedicalMainGUI {
 	 * 
 	 * 
 	 */
-	private void initialize() {
+	private void initialize(AppController appController) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1250, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,26 +84,37 @@ public class GestionExaMedicalMainGUI {
 
 		//
 		//ILaboratoireController defaultLabController = null ;
-		ILaboratoireController labController = new LaboController();
+		//ILaboratoireController labController = new LaboController();
 
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setResizeWeight(0.35);
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 		
 		//laboratoireMainPanel = new LaboratoireMainPanel(defaultLabController);
-		laboratoireMainPanel = new LaboratoireMainPanel(labController);
+		laboratoireMainPanel = new LaboratoireMainPanel(appController);
+
 		////////////////++++++++++++++++++++++++++++++++++把exaMedPrescritPanel 和demandeRDVPanel关联起来，以便exaPanel
 		//点击demandeRdv 来调用demandeRdv 里的方法来afficher table
 		exaMedPrescritPanel.setDemandeRDVLaboratoirePanel(laboratoireMainPanel.getDemandeRDVLaboratoirePanel());
 		splitPane.setLeftComponent(laboratoireMainPanel);
 		
-		notificationPanel = new NotificationPanel();
+		//TODO
+		 notificationPanel = new NotificationPanel();
+		setNotificationPanel(notificationPanel);
+		laboratoireMainPanel.getDemandeRDVLaboratoirePanel().setNotificationPanel(notificationPanel);
+
+
 		splitPane.setRightComponent(notificationPanel);
 		
-		notificationPanel.ajouteNotificationMsgMedecin("Ici, affichage des notifications pour le médecin" );
-		notificationPanel.ajouteNotificationMsgService("Ici, affichage des notifications pour le model.Service" );
-		notificationPanel.ajouteNotificationMsgPatient("Ici, affichage des notifications pour le patient" );		
+//		notificationPanel.ajouteNotificationMsgMedecin("Ici, affichage des notifications pour le médecin" );
+//		notificationPanel.ajouteNotificationMsgService("Ici, affichage des notifications pour le model.Service" );
+//		notificationPanel.ajouteNotificationMsgPatient("Ici, affichage des notifications pour le patient" );
 		
 	}
 
+
+
+	public void setNotificationPanel(NotificationPanel notificationPanel) {
+		this.notificationPanel = notificationPanel;
+	}
 }

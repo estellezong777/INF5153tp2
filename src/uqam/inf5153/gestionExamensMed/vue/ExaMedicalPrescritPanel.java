@@ -32,6 +32,8 @@ public class ExaMedicalPrescritPanel extends JPanel {
 
 	private DemandeRDVLaboratoirePanel demandeRDVLaboratoirePanel;
 
+
+
 	/**
 	 * Create the panel.
 	 */

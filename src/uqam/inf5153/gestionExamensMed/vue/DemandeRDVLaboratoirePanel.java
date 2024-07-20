@@ -7,9 +7,16 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import model.AppController;
+import model.InitApp;
+import model.notifieur.AbstractNotifieur;
+import model.notifieur.NotifieurCourriel;
+import model.notifieur.NotifieurSMS;
 import uqam.inf5153.gestionExamensMed.interf.IDemandeRDV;
 import uqam.inf5153.gestionExamensMed.interf.ILaboratoire;
 import uqam.inf5153.gestionExamensMed.interf.ILaboratoireController;
+import uqam.inf5153.gestionExamensMed.interf.IObserver;
+
 import javax.swing.border.TitledBorder;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
@@ -24,13 +31,14 @@ import javax.swing.JScrollPane;
 public class DemandeRDVLaboratoirePanel extends JPanel {
 	static ArrayList<PredefinedRDV> predefinedRDVList = new  ArrayList<PredefinedRDV>() ;
 
-
+    private AppController appController;
 
 	static {
 		initPredefList() ; 
 	}
 
-	private ILaboratoireController laboratoireController ; 
+	private ILaboratoireController laboratoireController ;
+
 
 	private static final long serialVersionUID = 1L;
 	private JTable demandeRDVtable;
@@ -39,11 +47,17 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	private JButton faireExamenButton;
 	private JScrollPane scrollPane;
 
+	private GestionExaMedicalMainGUI gestionExaMedicalMainGUI;
+
+	private NotificationPanel notificationPanel;
+
+
 	/**
 	 * Create the panel.
 	 */
-	public DemandeRDVLaboratoirePanel(ILaboratoireController laboratoireController) {
-		this.laboratoireController = laboratoireController ;
+	public DemandeRDVLaboratoirePanel(AppController appController) {
+		this.appController = appController;
+		this.laboratoireController = appController.getLaboController() ;
 		setLayout(new BorderLayout(0, 0));
 
 		scrollPane = new JScrollPane();
@@ -53,7 +67,7 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 
 		demandeRDVtable = new JTable();
 		// add(demandeRDVtable) ; //, BorderLayout.CENTER);
-		demandeRDVtable.setModel(buildTableModel()) ; 
+		/// demandeRDVtable.setModel(buildTableModel()) ;
 		// add(demandeRDVtable ,BorderLayout.SOUTH ) ; 
 
 
@@ -69,6 +83,7 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 		attribuerRDVButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				attributionRDVPredefini() ; ///TODO appcontroller.sendToLab the demandeRDV
+				attribuerRDVButton.setEnabled(false);
 			}
 		});
 		panel.add(attribuerRDVButton);
@@ -102,7 +117,8 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 
 		if (laboratoireController != null) {
 			ArrayList<ILaboratoire> listLabs = laboratoireController.getListLaboratoire() ;
-
+			System.out.println("33333333333333333333333333333333333333333333333333333333333333333333333333");
+			System.out.println("listlab"+listLabs);
 			int ind = 0 ; 
 			for (ILaboratoire unLab : listLabs) {
 
@@ -156,10 +172,40 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 						" , dateRDV = " + dateRDV + 
 						" , heureRDV = " + hRDV ; 
 				System.out.println ("#\t" + unRDV) ; 
-				RDVaTransmettre.add(unRDV) ; 
+				RDVaTransmettre.add(unRDV) ;
+
 			} 
 
 		}
+		appController.recevoirReponseLaboRdv(RDVaTransmettre);
+
+		NotificationPanel notificationPanel = this.notificationPanel;
+
+
+		AbstractNotifieur emailObserver= new NotifieurCourriel(notificationPanel);
+		AbstractNotifieur smsObserver= new NotifieurSMS(notificationPanel);
+
+		ArrayList<IObserver> listObserver = new ArrayList<>();
+		listObserver.add(emailObserver);
+		listObserver.add(smsObserver);
+		appController.traiterResponseLaboRDV(listObserver);
+
+		notificationPanel.ajouteNotificationMsgMedecin("Ici, affichage des notifications pour le médecin" );
+
+		//getGestionExaMedicalMainGUI().GestionExaMedicalMainGUI().setNotificationPanel(notificationPanel);
+
+
+	}
+
+	public void setNotificationPanel(NotificationPanel notificationPanel) {
+		this.notificationPanel = notificationPanel;
+	}
+	public void setGestionExaMedicalMainGUI(GestionExaMedicalMainGUI gestionExaMedicalMainGUI) {
+		this.gestionExaMedicalMainGUI = gestionExaMedicalMainGUI;
+	}
+
+	public GestionExaMedicalMainGUI getGestionExaMedicalMainGUI() {
+		return gestionExaMedicalMainGUI;
 	}
 
 	/**
@@ -288,8 +334,8 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
  * 
  */
 class PredefinedRDV { 
-	String date ; 
-	String heure ;
+	final String date ;
+	final String heure ;
 
 	public PredefinedRDV(String date, String heure) {
 		this.date = date;
