@@ -18,7 +18,4 @@ public class AnalyseUrine extends ExamenElem{
         return null;
     }
 
-//    public void accept(model.Visitor visitor) {
-//        visitor.visit(this);
-//    }
 }

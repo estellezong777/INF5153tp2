@@ -9,10 +9,6 @@ public abstract class ExamenCompose extends Examen {
         this.listExamensElem = new ArrayList<>();
     }
 
-
-
-
-
     public void addExamen(ExamenElem examen) {
         listExamensElem.add(examen);
     }

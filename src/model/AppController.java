@@ -3,83 +3,81 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Map;
 
 import examen.Examen;
 import laboratoire.*;
-import model.notifieur.AbstractNotifieur;
-import model.notifieur.NotifieurCourriel;
-import model.notifieur.NotifieurSMS;
 import uqam.inf5153.gestionExamensMed.interf.IDemandeRDV;
 import uqam.inf5153.gestionExamensMed.interf.IEvenement;
 import uqam.inf5153.gestionExamensMed.interf.ILaboratoire;
 import uqam.inf5153.gestionExamensMed.interf.IObserver;
 
 public class AppController {
-    //
     private ArrayList<Examen> listExamensElementaires;
-    private ArrayList<Examen> listExamensCompose;
 
+    /**
+    * Utilisons une table de hachage pour stocker les examens dans la description d'un patient.
+    * La clé de cette table de hachage est codePatient et la valeur est l'objet de PrescriptionExamen.
+    */
     private Hashtable< String ,ArrayList<PrescriptionExamen>> htablePrescriptions;
     private ArrayList<Medecin> listMedecin;
     private ArrayList<Patient> listPatient;
     private ArrayList<ILaboratoire> listLabo;
 
-    private RDVController rdvController;
-
     private LaboController laboController;
-//    private CentreDeSoinController centreDeSoinController;
-//    private RdvController rdvController;
 
-    //listReponseLabo = rdv reponse
+    // La liste est utilisée pour stocker les résultats de la réponse du laboratoire à la demande de rendez-vous
     private ArrayList<String> listReponseLabo;
 
-    private ArrayList<String> examenResultList ;
+    private ArrayList<String> examenResultList ;// Liste des résultats des examens des patients
 
+    // Constructeur
     public AppController() {
         this.listExamensElementaires = new ArrayList<>();
-        this.listExamensCompose = new ArrayList<>();
+        //this.listExamensCompose = new ArrayList<>();
         this.htablePrescriptions = new Hashtable<>();
         this.listMedecin = new ArrayList<>();
         this.listPatient = new ArrayList<>();
-
         this.listLabo = new ArrayList<>();
         this.listReponseLabo = new ArrayList<>();
         this.examenResultList = new ArrayList<>();
 
-        //this.laboController = new LaboController();
-
-//        this.centreDeSoinController = new CentreDeSoinController();
-       // this.rdvController = new RDVController();
     }
 
+    // Ajoutons tous les examens dont le patient a besoin à la listeExamensElementaires
     public void enreExamensPatient(PrescriptionExamen prescriptionExamen) {
         listExamensElementaires.add(prescriptionExamen.getExamen());
     }
 
+    // Ajoutons un nouveau patient enregistré à la listPatient
     public void enrePatients(Patient patient) {
         listPatient.add(patient);
     }
 
+    // Ajoutons un nouveau médecin enregistré à la listMedecin
     public void enreMedecin(Medecin medecin) {
         listMedecin.add(medecin);
     }
 
+    // Ajoutons un nouveau laboratoire enregistré à la listLabo
     public void enreLabo(ILaboratoire labo) {
         listLabo.add(labo);
     }
 
-    // Getters and setters for the lists and controllers if necessary
-
+    // Getters et setters pour les listes et contrôleurs si nécessaire
     public ArrayList<ILaboratoire> getListLabo() {
         return listLabo;
     }
 
+
     public void enrePresTable(PrescriptionExamen prescriptionExamen, String codePatient){
 
-        // Check if the patient code exists in the hashtable
+        //Vérifions si le code patient existe dans la table de hachage qui stocke des prescriptions
         ArrayList<PrescriptionExamen> prescriptions = htablePrescriptions.get(codePatient);
 
+        /**
+         * Si le patient n'a pas créé sa liste de prescriptions, nous créons d'abord sa liste de prescriptions
+         * puis ajoutons sa prescription à cette liste.
+        */
         if (prescriptions == null) {
 
             prescriptions = new ArrayList<>();
@@ -101,57 +99,53 @@ public class AppController {
         return laboController;
     }
 
-    //TODO Envoir listLAb to Labocontroller
-    public void envoyerListLab(){
-        laboController.setListLabo(listLabo);
-    }
 
-//    public RDVController getRdvController() {
-//        return rdvController;
-//    }
 
     public Hashtable<String, ArrayList<PrescriptionExamen>> gethtablePrescriptions() {
         return htablePrescriptions;
     }
 
 
+    /**
+     * Envoyons les données de DemandeRDV à labController via AppController
+    */
     public String envoyerDemandeRDV(HashMap<String,ArrayList<IDemandeRDV>> mapDemandeRDV){
-//        for (Map.Entry<String,ArrayList<IDemandeRDV>> entry : mapDemandeRDV.entrySet()){
-//           // Map<Examen,Laboratoire> examenLabo = new HashMap<>();
-//            String codeLab = entry.getKey();
-//            ArrayList<IDemandeRDV> listDemandrdv= entry.getValue();
-//
-//            laboController.recevoirToutDemandeRDV();
-//        }
+
         laboController.recevoirToutDemandeRDV(mapDemandeRDV);
         return "App Controller envoyer MapDemandeRDV to LaboController ";
 
     }
 
-    public RDVController getRdvController() {
-        return rdvController;
-    }
-
+    /**
+     * Transférons la liste des laboratoires d'Appcontroller vers labController
+    */
     public void envoyerListLabo(){
         laboController.setListLabo(listLabo);
     }
 
-
+    /**
+    * Recevoir les résultats de l'examen médicaux des patients envoyés par le laboratoire
+    **/
     public void recevoirReponseLaboRdv(ArrayList<String> reponseRDV){
         this.listReponseLabo = reponseRDV;
 
     }
 
-
-
-    //TODO 换一换
+    /**
+    * Parcourons la liste des réponses du labo pour DemandeRDV. eacheRponse est une chaîne
+    * qui contient des informations telles que CodePatient, numDemande, date, RDV et heureRDv
+    * respectivement, puis créons un nouvel objet RDV pour chaque rendez-vous.
+    * Un événement sera déclenché lors du traitement de la réponse et la personne correspondante sera avertie en
+    * fonction du type d'événement.
+     */
     public void traiterResponseLaboRDV(ArrayList<IObserver> listObservers){
-        //String codePatient = parts[0].split("=")[1];
 
         String codePatient = null;
         String numDemande = null;
         String dateRDV=null;
         String heureRDV=null;
+
+        // eachReponse example：[codePatient = Alie14325, numDemande = 453623, dateRDV = 15-07-2024, heureRDV = 14 :30]
         for (String eachReponse:listReponseLabo) {
             String[] parts = eachReponse.split(",");
             for (String part : parts) {
@@ -174,37 +168,35 @@ public class AppController {
                             break;
                     }
                 }
-
             RDV rdv = new RDV(codePatient,numDemande,dateRDV,heureRDV);
             IEvenement evenement = new Evenement(eachReponse,listObservers);
             evenement.notifierObserver();
-
-
-
 
             }
 
         }
 
+    /**
+     * Obtenons des informations sur ResultExamenlist à partir de laboController
+    */
     public void recevoirResultExamen( ){
         this.examenResultList = laboController.getResultExamenlist();
-        System.out.println("examenResultList: "+ examenResultList);
     }
 
 
+    /**
+     * Au cours du processus de traitement du résultat de l'examen, un événement sera
+     * déclenché et les informations sur résultats d'examen seront envoyées au service et
+     * au patient correspondant.
+    */
     public void traiterResultExamen(ArrayList<IObserver> listObservers){
 
         for (String eachResult:examenResultList) {
 
             IEvenement evenement = new Evenement(eachResult,listObservers);
-            System.out.println("eachResult:"+eachResult);
             evenement.notifierObserver();
         }
     }
-
-
-
-
     }
 
 

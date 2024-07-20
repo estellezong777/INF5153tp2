@@ -52,8 +52,6 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	private JButton faireExamenButton;
 	private JScrollPane scrollPane;
 
-	private GestionExaMedicalMainGUI gestionExaMedicalMainGUI;
-
 	private NotificationPanel notificationPanel;
 
 	ArrayList<IObserver> listObserver = new ArrayList<>();
@@ -72,14 +70,8 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 
 		scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
-		// this.setViewportView(demandeRDVtable);
-
 
 		demandeRDVtable = new JTable();
-		// add(demandeRDVtable) ; //, BorderLayout.CENTER);
-		/// demandeRDVtable.setModel(buildTableModel()) ;
-		// add(demandeRDVtable ,BorderLayout.SOUTH ) ; 
-
 
 		scrollPane.setViewportView(demandeRDVtable);
 
@@ -92,7 +84,9 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 		attribuerRDVButton = new JButton("Attribuer RDV");
 		attribuerRDVButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				attributionRDVPredefini() ; ///TODO appcontroller.sendToLab the demandeRDV
+				attributionRDVPredefini() ;
+
+				// Le bouton "Attribuer RDV " ne peut être cliqué qu'une seule fois
 				attribuerRDVButton.setEnabled(false);
 			}
 		});
@@ -113,7 +107,7 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	}
 
 	/**
-	 * Construction du Model de la table des model.RDV
+	 * Construction du Model de la table des RDV
 	 * @return
 	 */
 	public DefaultTableModel buildTableModel() {
@@ -125,10 +119,9 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 		res.addColumn("Heure RDV ( HH:MI)");
 		res.addColumn("Examen (Oui/Non)");
 
+		// Nous transmettons les données laboList à la page interactive
 		if (laboratoireController != null) {
 			ArrayList<ILaboratoire> listLabs = laboratoireController.getListLaboratoire() ;
-			System.out.println("33333333333333333333333333333333333333333333333333333333333333333333333333");
-			System.out.println("listlab"+listLabs);
 			int ind = 0 ; 
 			for (ILaboratoire unLab : listLabs) {
 
@@ -157,7 +150,9 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Obtenons les informations dans la table de rendez-vous assignée et
+	 * déclenchons des événements via AppController pour informer la personne correspondante par e-mail et message,
+	 * c'est-à-dire transmettre des messages entre le laboratoire et les patients, les médecins et les services.
 	 */
 	public void doTransmettreRDV() {
 		ArrayList<String> RDVaTransmettre = new ArrayList<String>() ;  
@@ -187,55 +182,45 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 			} 
 
 		}
+
+		/**
+		 * Recevons la réponse du labo à demandeaRDV via appController, et appController traite
+		 * ces réponses et déclenche un événement pour avertir la personne qui doit être avertie.
+		 * Et les informations qui doivent être notifiées seront affichées dans le panneau de notification.
+		 */
 		appController.recevoirReponseLaboRdv(RDVaTransmettre);
 
 		NotificationPanel notificationPanel = this.notificationPanel;
 
-
 		AbstractNotifieur emailObserver= new NotifieurCourriel(notificationPanel,loggerConsole);
 		AbstractNotifieur smsObserver= new NotifieurSMS(notificationPanel, loggerConsole);
-
 
 		listObserver.add(emailObserver);
 		listObserver.add(smsObserver);
 		appController.traiterResponseLaboRDV(listObserver);
 
-
-
-		//getGestionExaMedicalMainGUI().GestionExaMedicalMainGUI().setNotificationPanel(notificationPanel);
-
-
 	}
 
+	/**
+	 *Recevons les résultats de l'examen  et transmettons-les au médecin et au service.
+	 * Les panneaux du médecin et du service dans la notification afficheront les résultats.
+	 * */
 	public void doTransmettreResult(){
 		appController.getLaboController().recevoirReponseResultExamen(resultExamList);
 		appController.recevoirResultExamen( );
-
-		//NotificationPanel notificationPanel = this.notificationPanel;
-
-
-
 		appController.traiterResultExamen(listObserver);
-
-
 	}
+
 
 	public void setNotificationPanel(NotificationPanel notificationPanel) {
 		this.notificationPanel = notificationPanel;
 	}
-	public void setGestionExaMedicalMainGUI(GestionExaMedicalMainGUI gestionExaMedicalMainGUI) {
-		this.gestionExaMedicalMainGUI = gestionExaMedicalMainGUI;
-	}
-
-	public GestionExaMedicalMainGUI getGestionExaMedicalMainGUI() {
-		return gestionExaMedicalMainGUI;
-	}
 
 	/**
-	 * Callback du bouton  Attribuer model.RDV
+	 * Callback du bouton  Attribuer RDV
 	 * 
-	 * Attribut  des model.RDV (aléatoire) aux 80% des demandes
-	 * Attribuer des model.RDV
+	 * Attribut des RDV (aléatoire) aux 80% des demandes
+	 * Attribuer des RDV
 	 * 
 	 */
 	private void attributionRDVPredefini() {
@@ -260,12 +245,14 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	}
 
 	/**
-	 *  Callback du bouton  Faire examen 
-	 *  
+	 *  Callback du bouton "Faire examen "
+	 *  Après avoir cliqué sur le bouton « faire examen », les données de la quatrième colonne du
+	 *  tableau RDV (C'est résultat d'examen) seront mises à jour. Nous obtenons les données mises à jour dans
+	 *  cette colonne et envoyons les résultats au médecin et au service.
 	 */
 	private void faireExamenPredefini() {
 		DefaultTableModel tableRDV = (DefaultTableModel)demandeRDVtable.getModel() ;
-		String examReponse =null;
+		String examReponse = null; // initier la réponse de laboratoire
 
 		if (tableRDV != null ) {
 			int nbreDemandeRDV = tableRDV.getRowCount() ; 
@@ -275,21 +262,18 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 						tableRDV.getValueAt(i, 2).toString().length()!=0)  {
 
 					tableRDV.setValueAt("Oui" , i , 4 );
-
 				}
-				 examReponse =  tableRDV.getValueAt(i,1).toString()+ ", Exam Result:" +tableRDV.getValueAt(i,4).toString();
+				 examReponse =  "Exam Result:"+"\n"+"CodePatient est : "+ tableRDV.getValueAt(i,1).toString()+ ", Exam Result: " +tableRDV.getValueAt(i,4).toString();
 				 resultExamList.add(examReponse);
 			}
-
-			System.out.println("---------------------------------------------"+resultExamList);
 
 		}
 
 	}
 
 	/**
-	 * Retourne un model.RDV prédéfini aléatoirement parmi
-	 * la liste des model.RDV
+	 * Retourne un RDV prédéfini aléatoirement parmi
+	 * la liste des RDV
 	 * @return
 	 */
 	private static PredefinedRDV rdvAleatoire() {
@@ -302,8 +286,8 @@ public class DemandeRDVLaboratoirePanel extends JPanel {
 	}
 
 	/**
-	 * Méthode utilitaire pour créer des dates de model.RDV
-	 * afin d'attribuer des model.RDV automatiquement
+	 * Méthode utilitaire pour créer des dates de RDV
+	 * afin d'attribuer des RDV automatiquement
 	 */
 	private static void initPredefList() {
 		PredefinedRDV prefRDV ; 

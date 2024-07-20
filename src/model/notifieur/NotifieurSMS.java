@@ -1,5 +1,4 @@
 package model.notifieur;
-
 import model.AbstractEcouteur;
 import model.Logger.Logger;
 import uqam.inf5153.gestionExamensMed.vue.NotificationPanel;
@@ -20,27 +19,21 @@ public class NotifieurSMS extends AbstractNotifieur{
         }
         switch (type){
             case "RDV":
-                notificationPanel.ajouteNotificationMsgPatient(this.tostring(type) + reponse);
-                notificationPanel.ajouteNotificationMsgService(this.tostring(type) + reponse);
-
-                //logger
-                loggerConsole.info(this.tostring(type) + reponse);
-
+                notificationPanel.ajouteNotificationMsgPatient("Réponse type est : "+this.tostring(type) + reponse);
+                notificationPanel.ajouteNotificationMsgService("Réponse type est : "+this.tostring(type) + reponse);
+                loggerConsole.info("Réponse type est : "+this.tostring(type) + reponse);
                 break;
-            case "Exam Result":
-                notificationPanel.ajouteNotificationMsgService(this.tostring(type) + reponse);
-                notificationPanel.ajouteNotificationMsgMedecin(this.tostring(type) + reponse);
-                //logger
-                loggerConsole.info(this.tostring(type) + reponse);
 
+            case "Exam Result":
+                notificationPanel.ajouteNotificationMsgService("Réponse type est : "+ this.tostring(type) + reponse);
+                notificationPanel.ajouteNotificationMsgMedecin("Réponse type est : "+ this.tostring(type) + reponse);
+                loggerConsole.info("Réponse type est : "+this.tostring(type) + reponse);
                 break;
 
             default:
                 break;
 
         }
-
-        //logger
 
     }
 

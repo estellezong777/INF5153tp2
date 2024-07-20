@@ -6,14 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 
-import laboratoire.LaboController;
 import model.AppController;
 import model.InitApp;
-import uqam.inf5153.gestionExamensMed.interf.IEvenement;
+
 import uqam.inf5153.gestionExamensMed.interf.IExaMedicalHandler;
-import uqam.inf5153.gestionExamensMed.interf.ILaboratoireController;
-import uqam.inf5153.gestionExamensMed.testModel.DefaultExaMedHandler;
-//import uqam.inf5153.gestionExamensMed.testModel.DefaultLaboratoireController;
+
+
 
 /**
  * 
@@ -44,7 +42,6 @@ public class GestionExaMedicalMainGUI {
 					InitApp initApp = new InitApp();
 					initApp.ModelInitialisation();
 					AppController appController = initApp.appController;
-					ILaboratoireController laboratoireController = appController.getLaboController();
 
 					GestionExaMedicalMainGUI window = new GestionExaMedicalMainGUI(appController);
 					window.frame.setVisible(true);
@@ -82,34 +79,28 @@ public class GestionExaMedicalMainGUI {
 		exaMedPrescritPanel = new ExaMedicalPrescritPanel(examHandler);
 		frame.getContentPane().add(exaMedPrescritPanel, BorderLayout.WEST);
 
-		//
-		//ILaboratoireController defaultLabController = null ;
-		//ILaboratoireController labController = new LaboController();
 
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setResizeWeight(0.35);
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
-		
-		//laboratoireMainPanel = new LaboratoireMainPanel(defaultLabController);
+
+
+		/**
+		 * Ici，nous associons exaMedPrescritPanel et demandeRDVPanel pour que lorsque le bouton DemandeRDV
+		 * est cliqué dans exaMedicalPrescritPanel, la méthode dans DemandeRdv soit appelée pour afficher
+		 * les informations correspondantes dans le tableau
+		 * */
 		laboratoireMainPanel = new LaboratoireMainPanel(appController);
 
-		////////////////++++++++++++++++++++++++++++++++++把exaMedPrescritPanel 和demandeRDVPanel关联起来，以便exaPanel
-		//点击demandeRdv 来调用demandeRdv 里的方法来afficher table
 		exaMedPrescritPanel.setDemandeRDVLaboratoirePanel(laboratoireMainPanel.getDemandeRDVLaboratoirePanel());
 		splitPane.setLeftComponent(laboratoireMainPanel);
-		
-		//TODO
+
 		 notificationPanel = new NotificationPanel();
 		setNotificationPanel(notificationPanel);
 		laboratoireMainPanel.getDemandeRDVLaboratoirePanel().setNotificationPanel(notificationPanel);
 
-
 		splitPane.setRightComponent(notificationPanel);
-		
-//		notificationPanel.ajouteNotificationMsgMedecin("Ici, affichage des notifications pour le médecin" );
-//		notificationPanel.ajouteNotificationMsgService("Ici, affichage des notifications pour le model.Service" );
-//		notificationPanel.ajouteNotificationMsgPatient("Ici, affichage des notifications pour le patient" );
-		
+
 	}
 
 

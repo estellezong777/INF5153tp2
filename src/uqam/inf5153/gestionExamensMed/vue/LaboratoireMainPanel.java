@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
 import model.AppController;
-import uqam.inf5153.gestionExamensMed.interf.ILaboratoireController;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
@@ -48,6 +47,10 @@ public class LaboratoireMainPanel extends JPanel {
 		controlLabPanel.add(transRDVButton);
 		
 		transExamenButton = new JButton("Transmettre Examen");
+
+		/**
+		 * appelons la méthode doTransmettreResult
+		 * */
 		transExamenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				doTransmettreResult();
@@ -57,14 +60,15 @@ public class LaboratoireMainPanel extends JPanel {
 	}
 	
 	/**
-	 * 
+	 * Envoyer les informations RDV au panneau de notification
 	 */
 	private void doTransmettreRDV() {
 		demandeRDVLaboratoirePanel.doTransmettreRDV() ;
 	}
-
+	/**
+	 * Envoyer les résultats d'examen au panneau de notification
+	 */
 	private void doTransmettreResult(){demandeRDVLaboratoirePanel.doTransmettreResult() ;
-
 	}
 
 	public DemandeRDVLaboratoirePanel getDemandeRDVLaboratoirePanel() {

@@ -1,6 +1,5 @@
 package model;
 
-import examen.Examen;
 import uqam.inf5153.gestionExamensMed.interf.IDemandeRDV;
 
 public class DemandeRDV implements IDemandeRDV {
@@ -8,9 +7,7 @@ public class DemandeRDV implements IDemandeRDV {
     private String codePatient;
 
     private String nomPatient;
-//TODO
-//= labelExamen, composer de nom de l'examen et ses parametres
-    private String descriptionExamen;
+    private String descriptionExamen;// Composer de nom de l'examen et ses paramètres
 
     // Constructeur
     public DemandeRDV(String nomPatient,String codePatient, String descriptionExamen) {
@@ -32,7 +29,7 @@ public class DemandeRDV implements IDemandeRDV {
 
     @Override
     public String getLabelExamen() {
-        //TODO return descriptionExamen;
+        //retour descriptionExamen;
         return descriptionExamen;
     }
 
@@ -66,6 +63,9 @@ public class DemandeRDV implements IDemandeRDV {
     }
 
 
+    /**
+     * Utilisons le patron singleton pour générer le code unique de Demande
+    */
     private static class GenerateurCodeDemande{
         private static GenerateurCodeDemande generateurCodeDemande;
         private int counter;

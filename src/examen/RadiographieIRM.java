@@ -1,7 +1,6 @@
 package examen;
 
 import examen.types.RadiographieIRMPart;
-import examen.types.RadiographieRayonXPart;
 
 public class RadiographieIRM extends ExamenElem{
     private RadiographieIRMPart type;

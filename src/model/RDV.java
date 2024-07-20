@@ -1,16 +1,11 @@
 package model;
-
-
-
-
-
 public class RDV {
         private String codePatient;
         private String numDemande;
         private String dateRDV;
         private String heureRDV;
 
-        // Constructor
+        // Constructeur
         public RDV(String codePatient, String numDemande, String dateRDV, String heureRDV) {
             this.codePatient = codePatient;
             this.numDemande = numDemande;
@@ -18,7 +13,7 @@ public class RDV {
             this.heureRDV = heureRDV;
         }
 
-        // Getters and Setters
+        // Getters et Setters
         public String getCodePatient() {
             return codePatient;
         }

@@ -21,9 +21,6 @@ public abstract class  AbstractNotifieur implements IObserver {
 
     public  void notifierEcouteur(String reponse) {
 
-
-       // triggerNotififaction();
     }
-    //protected abstract void triggerNotififaction();
     public String tostring(String type){ return null;}
 }

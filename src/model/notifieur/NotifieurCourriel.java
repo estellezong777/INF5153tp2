@@ -5,7 +5,6 @@ import model.Logger.Logger;
 import model.RDV;
 import uqam.inf5153.gestionExamensMed.vue.NotificationPanel;
 
-import java.util.ArrayList;
 
 
 public class NotifieurCourriel extends AbstractNotifieur{
@@ -17,8 +16,6 @@ public class NotifieurCourriel extends AbstractNotifieur{
     }
 
     public void notifierEcouteur(String reponse) {
-        //this.ecouteurList = listEcouteurs;
-        //notifier ecouteur
         String type=null;
         if( reponse.contains("dateRDV")){
             type = "RDV";
@@ -27,35 +24,25 @@ public class NotifieurCourriel extends AbstractNotifieur{
         }
         switch (type){
             case "RDV":
-                notificationPanel.ajouteNotificationMsgPatient(this.tostring(type) + reponse);
-                notificationPanel.ajouteNotificationMsgService(this.tostring(type) + reponse);
-                //logger
-                loggerConsole.info(this.tostring(type) + reponse);
-
-
-
+                notificationPanel.ajouteNotificationMsgPatient("Réponse type est : "+ this.tostring(type) + reponse);
+                notificationPanel.ajouteNotificationMsgService("Réponse type est : "+this.tostring(type) + reponse);
+                loggerConsole.info("Réponse type est : "+ this.tostring(type) + reponse);
                 break;
+
             case "Exam Result":
-                notificationPanel.ajouteNotificationMsgService(this.tostring(type) + reponse);
-                notificationPanel.ajouteNotificationMsgMedecin(this.tostring(type) + reponse);
-                //logger
-                loggerConsole.info(this.tostring(type) + reponse);
-
-
+                notificationPanel.ajouteNotificationMsgService("Réponse type est : "+ this.tostring(type) + reponse);
+                notificationPanel.ajouteNotificationMsgMedecin("Réponse type est : "+this.tostring(type) + reponse);
+                loggerConsole.info("Réponse type est : "+this.tostring(type) + reponse);
                 break;
             default:
                 break;
 
         }
 
-        //logger
-
-
-
     }
 
     @Override
     public String tostring(String type) {
-        return "NotifieurCourriel+(" + type + "):  ";
+        return "NotifieurCourriel+(" + type + "): ";
     }
 }

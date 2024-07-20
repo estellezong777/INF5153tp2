@@ -5,15 +5,16 @@ public class PrescriptionExamen {
     private Examen examen;
     private Medecin medecin;
     private Patient patient;
-    private AppController appController;
 
-    // Constructor
+    // Constructeur
     public PrescriptionExamen(Medecin medecin, Patient patient, Examen examen) {
         this.medecin = medecin;
         this.patient = patient;
         this.examen = examen;
     }
 
+
+    // Getters et Setters
     public Examen getExamen() {
         return examen;
     }
@@ -38,11 +39,4 @@ public class PrescriptionExamen {
         this.patient = patient;
     }
 
-    public AppController getAppController() {
-        return appController;
-    }
-
-    public void setAppController(AppController appController) {
-        this.appController = appController;
-    }
 }

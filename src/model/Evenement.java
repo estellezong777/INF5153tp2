@@ -9,6 +9,7 @@ public class Evenement implements IEvenement {
     protected ArrayList<AbstractEcouteur> ecouteurList;
     private ArrayList<IObserver> observerList;
 
+    // Une réponse donnée par le Laboratoire, y compris les réponses au DemandeRDV et les résultats de l'examen
     private String reponse;
 
 
@@ -25,8 +26,6 @@ public class Evenement implements IEvenement {
         ecouteurList.remove(ecouteur);
     }
 
-
-
     @Override
     public void addObserver(IObserver observer) {
         observerList.add(observer);
@@ -36,10 +35,9 @@ public class Evenement implements IEvenement {
         observerList.remove(observer);
     }
 
-    // Observer = Notifieur
+    // Envoyons une notification à la personne correspondante en fonction de la réponse donnée par le laboratoire
     public void notifierObserver(){
         for(IObserver observer:observerList){
-            //notifierEcouteur = update   reponse == rdv / examenrdv
             observer.notifierEcouteur(reponse);
         }
     };

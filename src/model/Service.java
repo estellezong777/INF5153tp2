@@ -15,4 +15,25 @@ public class Service extends AbstractEcouteur {
         this.emailService = emailService;
         this.listMedecinService = new ArrayList<>();
     }
+
+
+    // Utilisons un patron singleton pour générer un code unique pour le Service
+    private static class GenerateurCodeService{
+        private static Service.GenerateurCodeService generateurCodeService;
+        private int counter;
+        private GenerateurCodeService(){
+            counter = 0;
+        }
+
+        public static GenerateurCodeService getInstance(){
+            if (generateurCodeService == null){
+                generateurCodeService = new GenerateurCodeService();
+            }return generateurCodeService;
+        }
+
+        public String generate(){
+            this.counter++;
+            return "Pat" + String.format("%06d", counter);
+        }
+    }
 }

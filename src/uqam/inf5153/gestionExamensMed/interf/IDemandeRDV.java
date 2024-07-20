@@ -1,8 +1,5 @@
 package uqam.inf5153.gestionExamensMed.interf;
 
-/**
- * 
- */
 public interface IDemandeRDV {
 	
  	

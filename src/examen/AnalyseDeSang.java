@@ -1,6 +1,5 @@
 package examen;
 import examen.types.AnalyseDeSangParameter;
-import model.Visitor;
 
 
 public class AnalyseDeSang extends ExamenElem {
@@ -21,9 +20,4 @@ public class AnalyseDeSang extends ExamenElem {
         return this.type;
     }
 
-
-
-//    public void accept(model.Visitor visitor) {
-//        visitor.visit(this);
-//    }
 }

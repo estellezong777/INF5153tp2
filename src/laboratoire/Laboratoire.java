@@ -1,7 +1,6 @@
 package laboratoire;
 
 import examen.Examen;
-import model.Medecin;
 import uqam.inf5153.gestionExamensMed.interf.IDemandeRDV;
 import uqam.inf5153.gestionExamensMed.interf.ILaboratoire;
 
@@ -47,6 +46,9 @@ public class Laboratoire implements ILaboratoire {
         return listDemandeRDV;
     }
 
+
+
+    // Utilisons le mode singleton pour générer le code unique du Laboratoire
     private static class GenerateurCodeLaboratoire{
         private static GenerateurCodeLaboratoire generateurCodeLaboratoire;
         private int counter;
@@ -60,10 +62,12 @@ public class Laboratoire implements ILaboratoire {
             }return generateurCodeLaboratoire;
         }
 
+        // Spécification du code du laboratoire. Ex: Lab000002
         public String generate(){
             this.counter++;
             return "Lab" + String.format("%06d", counter);
         }
 
 
-    }}
+    }
+}

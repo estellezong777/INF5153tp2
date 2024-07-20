@@ -8,8 +8,7 @@ import javax.swing.border.TitledBorder;
 
 /**
  * Implémente le panneau qui contient les zones de texte pour les messages 
- * de notifications 
- * 
+ * de notifications
  */
 public class NotificationPanel extends JPanel {
 
@@ -36,22 +35,22 @@ public class NotificationPanel extends JPanel {
 		
 		notifServiceTextArea = new JTextArea();
 		notifServiceTextArea.setEditable(false);
-		notifServiceTextArea.setBorder(new TitledBorder(null, "Notification model.Service", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		notifServiceTextArea.setBorder(new TitledBorder(null, "Notification Service", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		splitPane_1.setLeftComponent(notifServiceTextArea);
 		
 		notifPatientTextArea = new JTextArea();
 		notifPatientTextArea.setEditable(false);
-		notifPatientTextArea.setBorder(new TitledBorder(null, "Notification model.Patient", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		notifPatientTextArea.setBorder(new TitledBorder(null, "Notification Patient", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		splitPane_1.setRightComponent(notifPatientTextArea);
 		
 		notifMedecinTextArea = new JTextArea();
 		notifMedecinTextArea.setEditable(false);
-		notifMedecinTextArea.setBorder(new TitledBorder(null, "Notification model.Medecin", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		notifMedecinTextArea.setBorder(new TitledBorder(null, "Notification Medecin", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		splitPane.setLeftComponent(notifMedecinTextArea);
 	}
 	
 	/**
-	 * Ajoute un message (à la fin) dans le panneau des notification pour le médecin  
+	 * Ajoute un message (à la fin) dans le panneau de notification pour le médecin
 	 * 
 	 * @param msg
 	 */
@@ -60,7 +59,7 @@ public class NotificationPanel extends JPanel {
 	}
 
 	/**
-	 * Ajoute un message (à la fin) dans le panneau des notification pour le patient  
+	 * Ajoute un message (à la fin) dans le panneau de notification pour le patient
 	 * 
 	 * @param msg
 	 */
@@ -69,7 +68,7 @@ public class NotificationPanel extends JPanel {
 	}
 
 	/**
-	 * Ajoute un message (à la fin) dans le panneau des notification pour le service   
+	 * Ajoute un message (à la fin) dans le panneau de notification pour le service
 	 * 
 	 * @param msg
 	 */
